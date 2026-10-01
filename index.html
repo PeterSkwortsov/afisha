@@ -9,10 +9,8 @@
         /* --- Стили, взятые из PDF (Цвета и типографика) --- */
         :root {
             --bg-dark: #0A2240;
-            /* Глубокий синий из PDF */
             --bg-card: #12335E;
             --accent-gold: #F2C94C;
-            /* Желтый/золотой из PDF */
             --text-light: #FFFFFF;
             --text-muted: #B0C4DE;
             --border-color: rgba(255, 255, 255, 0.15);
@@ -28,9 +26,12 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
+            /* ГРАДИЕНТНЫЙ ФОН */
+            background: linear-gradient(135deg, #06152b 0%, #0A2240 40%, #12335E 100%);
+            background-attachment: fixed;
             color: var(--text-light);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
@@ -39,11 +40,11 @@
             padding: 20px;
         }
 
-        /* --- Шапка (Логотип Кванториум) --- */
+        /* --- Шапка --- */
         header {
             text-align: center;
             padding: 30px 20px;
-            background: linear-gradient(180deg, rgba(10, 34, 64, 1) 0%, rgba(10, 34, 64, 0.9) 100%);
+            background: linear-gradient(180deg, rgba(10, 34, 64, 0.8) 0%, rgba(10, 34, 64, 0.2) 100%);
             margin-bottom: 30px;
             border-bottom: 1px solid var(--border-color);
         }
@@ -54,21 +55,6 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 20px;
-        }
-
-        .quantorium-logo {
-            width: 50px;
-            height: 50px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantorium-logo::before {
-            content: '⚛';
-            font-size: 40px;
-            color: var(--accent-gold);
         }
 
         header h1 {
@@ -121,7 +107,7 @@
             max-width: 900px;
         }
 
-        /* --- Список мероприятий (Стиль из PDF) --- */
+        /* --- Список мероприятий --- */
         .event-list {
             display: flex;
             flex-direction: column;
@@ -137,7 +123,6 @@
             border: 1px solid var(--border-color);
             transition: background-color 0.3s, transform 0.2s;
             align-items: flex-start;
-            /* Выравнивание по верху */
         }
 
         .event-item:hover {
@@ -145,7 +130,6 @@
             transform: translateX(5px);
         }
 
-        /* Круглые номера как в PDF */
         .number-circle {
             width: 50px;
             height: 50px;
@@ -162,7 +146,7 @@
             margin-top: 5px;
         }
 
-        /* НОВЫЙ СТИЛЬ: Картинка для мероприятия в списке */
+        /* Картинка для мероприятия в списке */
         .event-thumb {
             width: 120px;
             height: 120px;
@@ -170,6 +154,13 @@
             border-radius: 10px;
             border: 1px solid var(--border-color);
             flex-shrink: 0;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .event-thumb:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-gold);
         }
 
         .event-content {
@@ -226,7 +217,7 @@
             transform: scale(1.05);
         }
 
-        /* --- Специальные блоки (Городец, Арзамас) --- */
+        /* --- Специальные блоки --- */
         .special-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -243,13 +234,17 @@
             flex-direction: column;
         }
 
-        /* Стили для изображений в специальных карточках */
         .special-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            /* Чтобы картинка красиво обрезалась */
             border-bottom: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .special-img:hover {
+            transform: scale(1.02);
         }
 
         .special-content {
@@ -273,7 +268,7 @@
             flex-grow: 1;
         }
 
-        /* --- Ретропоезд (Общий блок) --- */
+        /* --- Ретропоезд --- */
         .retro-section {
             background: linear-gradient(135deg, #0A2240 0%, #1a3a6a 100%);
             border: 2px solid var(--accent-gold);
@@ -281,7 +276,6 @@
             padding: 30px;
             margin-top: 30px;
             overflow: hidden;
-            /* Чтобы картинка не вылезала */
         }
 
         .retro-header {
@@ -296,7 +290,6 @@
             color: var(--accent-gold);
         }
 
-        /* Картинка для ретропоезда */
         .retro-main-img {
             width: 100%;
             height: 300px;
@@ -304,27 +297,18 @@
             border-radius: 10px;
             margin-bottom: 20px;
             border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .retro-main-img:hover {
+            transform: scale(1.01);
         }
 
         .retro-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .retro-info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .event-item {
-                flex-direction: column;
-            }
-
-            .event-thumb {
-                width: 100%;
-                height: 150px;
-            }
         }
 
         .retro-wagon {
@@ -345,7 +329,7 @@
             color: var(--text-muted);
         }
 
-        /* --- Ночной трип (Бары) --- */
+        /* --- Ночной трип --- */
         .night-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -356,7 +340,6 @@
             background-color: var(--bg-card);
             border-radius: 12px;
             overflow: hidden;
-            /* Важно для обрезки картинки */
             border: 1px solid var(--border-color);
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
@@ -369,17 +352,16 @@
             border-color: var(--accent-gold);
         }
 
-        /* Стили для картинок баров */
         .bar-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
             transition: transform 0.3s;
+            cursor: pointer;
         }
 
         .bar-card:hover .bar-img {
             transform: scale(1.05);
-            /* Эффект зума при наведении */
         }
 
         .bar-content {
@@ -411,6 +393,62 @@
             color: #ddd;
         }
 
+        /* --- МОДАЛЬНОЕ ОКНО --- */
+        .modal {
+            display: none;
+            /* Скрыто по умолчанию */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(242, 201, 76, 0.3);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-gold);
+        }
+
         /* --- Футер --- */
         footer {
             text-align: center;
@@ -420,6 +458,28 @@
             border-top: 1px solid var(--border-color);
             margin-top: 50px;
         }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 768px) {
+            .retro-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-item {
+                flex-direction: column;
+            }
+
+            .event-thumb {
+                width: 100%;
+                height: 150px;
+            }
+
+            .modal-close {
+                font-size: 35px;
+                top: 10px;
+                right: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -428,7 +488,6 @@
     <header>
         <div class="container">
             <div class="logo-title">
-                <div class="quantorium-logo"></div>
                 <h1>КВАНТОРИУМ</h1>
             </div>
             <p class="subtitle">Экскурсионно-развлекательная программа «Нескучный Нижний»</p>
@@ -567,11 +626,7 @@
                 <!-- 6. ЦЕХ -->
                 <div class="event-item">
                     <div class="number-circle">6</div>
-                    
-                    <img src="img/drtmlayzer.jpg" alt="Автобус" class="event-thumb">
-                    <div class="event-thumb"
-                        style="background: #2a4a7a; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
-                        🖼️</div>
+                    <img src="img/drtmlayzer.jpg" alt="Выставка" class="event-thumb">
                     <div class="event-content">
                         <div class="event-title">
                             <span class="event-icon">🖼️</span> Выставка в ЦЕХу (НижПолиграф)
@@ -667,7 +722,6 @@
                 <h2 class="retro-title">Ретропоезд</h2>
             </div>
 
-            <!-- Используем вашу картинку retro_poezd -->
             <img src="img/retro_poezd.jpeg" alt="Ретропоезд" class="retro-main-img">
 
             <p style="margin-bottom: 20px; color: var(--text-muted);">
@@ -720,7 +774,7 @@
 
             <div class="night-grid">
 
-                <!-- Русский ПАБ (russian_bar) -->
+                <!-- Русский ПАБ -->
                 <div class="bar-card">
                     <img src="img/russian_bar.jpg" alt="Русский ПАБ" class="bar-img">
                     <div class="bar-content">
@@ -740,7 +794,7 @@
                     </div>
                 </div>
 
-                <!-- Кракен бар (kraken_bar) -->
+                <!-- Кракен бар -->
                 <div class="bar-card">
                     <img src="img/kraken_bar.jpeg" alt="Кракен бар" class="bar-img">
                     <div class="bar-content">
@@ -761,7 +815,7 @@
                     </div>
                 </div>
 
-                <!-- Union Jack (unionJack) -->
+                <!-- Union Jack -->
                 <div class="bar-card">
                     <img src="img/unionJack.jpeg" alt="Union Jack" class="bar-img">
                     <div class="bar-content">
@@ -782,7 +836,7 @@
                     </div>
                 </div>
 
-                <!-- Franky bar (franky-bar) -->
+                <!-- Franky bar -->
                 <div class="bar-card">
                     <img src="img/franky-bar.jpg" alt="Franky bar" class="bar-img">
                     <div class="bar-content">
@@ -802,7 +856,7 @@
                     </div>
                 </div>
 
-                <!-- ROZAS (rozas) -->
+                <!-- ROZAS -->
                 <div class="bar-card">
                     <img src="img/rozas.jpeg" alt="ROZAS" class="bar-img">
                     <div class="bar-content">
@@ -823,7 +877,7 @@
                     </div>
                 </div>
 
-                <!-- Draft bar (draft-Bar) -->
+                <!-- Draft bar -->
                 <div class="bar-card">
                     <img src="img/draft-Bar.jpeg" alt="Draft bar" class="bar-img">
                     <div class="bar-content">
@@ -850,6 +904,56 @@
 
     </main>
 
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ИЗОБРАЖЕНИЙ -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImg" alt="Просмотр изображения">
+    </div>
+
+    <script>
+        // Получаем элементы модального окна
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const closeBtn = document.querySelector('.modal-close');
+
+        // Находим все картинки на странице, которые должны открываться в модальном окне
+        const images = document.querySelectorAll('.event-thumb, .special-img, .retro-main-img, .bar-img');
+
+        // Добавляем обработчик клика для каждой картинки
+        images.forEach(img => {
+            img.addEventListener('click', function () {
+                modal.classList.add('active');
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+                // Блокируем прокрутку страницы, пока открыто модальное окно
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Функция закрытия модального окна
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Возвращаем прокрутку
+        }
+
+        // Закрытие по клику на крестик
+        closeBtn.addEventListener('click', closeModal);
+
+        // Закрытие по клику на темный фон вокруг картинки
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Закрытие по нажатию клавиши Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
 
 </body>
 
