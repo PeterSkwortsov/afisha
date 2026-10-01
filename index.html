@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нескучный Нижний - Экскурсионно-развлекательная программа</title>
+    <style>
+        /* --- Общие стили --- */
+        :root {
+            --bg-dark: #0A2240; /* Темно-синий фон */
+            --bg-card: #12335E; /* Синий для карточек */
+            --bg-card-hover: #1A4175;
+            --accent-gold: #F2C94C; /* Золотой/желтый акцент */
+            --text-light: #FFFFFF;
+            --text-muted: #B0C4DE;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--accent-gold);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 30px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* --- Шапка --- */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(10,34,64,1) 0%, rgba(10,34,64,0.8) 100%);
+            margin-bottom: 20px;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-dark);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            margin-top: 10px;
+        }
+
+        /* --- Секции --- */
+        .section-block {
+            margin-bottom: 60px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        /* --- Сетка карточек --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- Карточка --- */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            background-color: var(--bg-card-hover);
+            border-color: var(--accent-gold);
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .card-price {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* --- Кнопка ссылки --- */
+        .card-link {
+            display: block;
+            text-align: center;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: background-color 0.2s;
+            margin-top: auto;
+        }
+
+        .card-link:hover {
+            background-color: #fff;
+        }
+
+        /* --- Специфичные стили для блоков --- */
+        
+        /* Дневной трип */
+        .day-trip-grid .card {
+            background: linear-gradient(145deg, var(--bg-card), #0f2a50);
+        }
+
+        /* Ночной трип */
+        .night-trip-grid .card {
+            background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+        }
+
+        /* Ретропоезд */
+        .retro-train-section {
+            background: linear-gradient(135deg, #0A2240 0%, #1a3a6a 100%);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .retro-card {
+            grid-column: 1 / -1; /* На всю ширину */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .retro-card {
+                flex-direction: column;
+            }
+        }
+
+        .retro-img {
+            flex: 1;
+            min-height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-right: 2px solid var(--border-color);
+        }
+
+        .retro-info {
+            flex: 2;
+            padding: 25px;
+        }
+
+        .retro-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .feature-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* --- Футер --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        /* Заглушки для картинок, так как у нас нет оригинальных файлов */
+        .img-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #2a4a7a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo-title">
+                <div class="logo-icon">НН</div>
+                <h1>Нескучный Нижний</h1>
+            </div>
+            <p class="subtitle">Экскурсионно-развлекательная программа</p>
+            <p style="max-width: 800px; margin: 20px auto; color: #ddd;">
+                Мы собрали для Вас наши самые яркие культурные события, чтобы Вы могли не просто хорошо провести время, 
+                а по-настоящему прочувствовать Нижний Новгород, уловить его уникальный ритм и влюбиться в его атмосферу.
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Секция: Дневной трип -->
+        <section class="section-block">
+            <div class="section-header">
+                <span class="section-icon">☀️</span>
+                <h2>Дневной трип «Столица рассвета»</h2>
+            </div>
+            
+            <h3 style="color: var(--accent-gold); margin-bottom: 20px;">Нижний Новгород</h3>
+            <div class="grid day-trip-grid">
+                
+                <!-- Аквапарк -->
+                <div class="card">
+                    <div class="img-placeholder">Аквапарк Океанис</div>
+                    <div class="card-content">
+                        <div class="card-title">Аквапарк «Океанис» и парк Швейцария</div>
+                        <p class="card-desc">10 октября, 10:00 – 21:00</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">4090 ₽</span>
+                        </div>
+                        <a href="https://oceanis-aquapark.ru/actions/tarify-na-osen" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Футбол -->
+                <div class="card">
+                    <div class="img-placeholder">Стадион</div>
+                    <div class="card-content">
+                        <div class="card-title">«Пари НН — Енисей». Первая Лига</div>
+                        <p class="card-desc">10 октября, 17:00 – 20:00<br>Стадион «Нижний Новгород»</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">от 1100 ₽</span>
+                        </div>
+                        <a href="#" class="card-link" onclick="alert('Ссылка на билеты уточняется'); return false;">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Цирк -->
+                <div class="card">
+                    <div class="img-placeholder">Цирк</div>
+                    <div class="card-content">
+                        <div class="card-title">Нижегородский цирк</div>
+                        <p class="card-desc">10 октября, 17:00</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">1200 – 7000 ₽</span>
+                        </div>
+                        <a href="https://www.circus-nnovgorod.ru/" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Кремль -->
+                <div class="card">
+                    <div class="img-placeholder">Кремль</div>
+                    <div class="card-content">
+                        <div class="card-title">Прогулка в Кремле, выставки в Арсенале</div>
+                        <p class="card-desc">10 октября, по расписанию</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">от 500 ₽</span>
+                        </div>
+                        <a href="https://arsenal-museum.art/vistavki/" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Автобус -->
+                <div class="card">
+                    <div class="img-placeholder">Автобус</div>
+                    <div class="card-content">
+                        <div class="card-title">Экскурсионный автобус «Влюбиться в Нижний»</div>
+                        <p class="card-desc">10 октября, 11:00 – 18:00</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">1900 ₽</span>
+                        </div>
+                        <a href="#" class="card-link" onclick="alert('Ссылка на билеты уточняется'); return false;">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- ЦЕХ -->
+                <div class="card">
+                    <div class="img-placeholder">Выставка</div>
+                    <div class="card-content">
+                        <div class="card-title">Выставка в ЦЕХу (НижПолиграф)</div>
+                        <p class="card-desc">Том Ванз, 36 degrés.<br>10 октября, 12:00 – 21:00</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">700 ₽</span>
+                        </div>
+                        <a href="https://tseh.space/exhibitions" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Заповедные кварталы -->
+                <div class="card">
+                    <div class="img-placeholder">Кварталы</div>
+                    <div class="card-content">
+                        <div class="card-title">Заповедные кварталы</div>
+                        <p class="card-desc">Экскурсии и мастер-классы<br>10 октября, по расписанию</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">от 700 ₽</span>
+                        </div>
+                        <a href="https://tickets.zkvartaly.ru/excursions_list" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--accent-gold); margin: 40px 0 20px;">Городец и Арзамас</h3>
+            <div class="grid day-trip-grid">
+                <!-- Городец -->
+                <div class="card">
+                    <div class="img-placeholder">Теплоход</div>
+                    <div class="card-content">
+                        <div class="card-title">Речной автобус «Водолет» до Городца</div>
+                        <p class="card-desc">Посещение музея «Город Мастеров»<br>10 октября, по расписанию</p>
+                        <div class="card-details">
+                            <span>Билет:</span>
+                            <span class="card-price">700 ₽</span>
+                        </div>
+                        <a href="https://tickets.vodoletnn.ru/tariffs" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Арзамас -->
+                <div class="card">
+                    <div class="img-placeholder">Паровоз</div>
+                    <div class="card-content">
+                        <div class="card-title">Арзамас на ретропоезде</div>
+                        <p class="card-desc">Обзорная экскурсия по городу.<br>10 октября, 10:44 (из НН), 17:21 (из Арзамаса)</p>
+                        <div class="card-details">
+                            <span>Проезд:</span>
+                            <span class="card-price">370 ₽</span>
+                        </div>
+                        <a href="https://vvppk.ru/partneram/turisticheskie-marshruty/retro-tury-s-parovozom-po-marshrutu-nizhniy-novgorod-arzamas" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция: Ретропоезд -->
+        <section class="section-block retro-train-section">
+            <div class="section-header">
+                <span class="section-icon">🚂</span>
+                <h2>Ретропоезд</h2>
+            </div>
+            
+            <div class="grid">
+                <!-- Карточка Ретропоезда (общая) -->
+                <div class="card retro-card">
+                    <div class="retro-img" style="background: #2a4a7a; display: flex; align-items: center; justify-content: center; color: white;">
+                        [Фото Ретропоезда]
+                    </div>
+                    <div class="retro-info">
+                        <div class="card-title" style="font-size: 1.5rem;">Путешествие во времени</div>
+                        <p class="card-desc">
+                            10 октября, 15:15 (продолжительность 2 часа). 
+                            Выберите свой вагон: музыкальный или ностальгический.
+                        </p>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--accent-gold); margin-bottom: 5px;">2 вагон «МУЗЫКАЛЬНЫЙ»</h4>
+                            <p style="font-size: 0.9rem;">Любимые песни, шоу фокусов, баттл «Дети против родителей», дискотека и сладкое угощение.</p>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--accent-gold); margin-bottom: 5px;">3 вагон «НАЗАД В СССР»</h4>
+                            <p style="font-size: 0.9rem;">Игры советского детства, посвящение в сентябрят, письмо в любую точку мира, фото с героями и подарки.</p>
+                        </div>
+
+                        <div class="retro-features">
+                            <span class="feature-tag">🎵 Музыка</span>
+                            <span class="feature-tag">🎩 Фокусы</span>
+                            <span class="feature-tag">📸 Фото</span>
+                            <span class="feature-tag">🍬 Угощение</span>
+                        </div>
+
+                        <div class="card-details" style="background: rgba(0,0,0,0.4);">
+                            <span>Стоимость:</span>
+                            <span class="card-price" style="font-size: 1.2rem;">3500 ₽</span>
+                        </div>
+                        
+                        <a href="https://nn.kassir.ru/detyam/puteshestvie-vo-vremeni-retropoezd?ybaip=" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция: Ночной трип -->
+        <section class="section-block">
+            <div class="section-header">
+                <span class="section-icon">🌙</span>
+                <h2>Ночной трип «Столица закатов»</h2>
+            </div>
+            <p style="margin-bottom: 30px; max-width: 900px;">
+                Нижний Новгород по праву носит звание «Столицы закатов». Мы рекомендуем наши проверенные места: бары и рестораны, 
+                где в самой неформальной и уютной обстановке вы сможете насладиться потрясающими закатами, отличной кухней 
+                и по-настоящему ощутить душу пробуждающегося ночного города.
+            </p>
+
+            <div class="grid night-trip-grid">
+                
+                <!-- Русский ПАБ -->
+                <div class="card">
+                    <div class="img-placeholder">Русский ПАБ</div>
+                    <div class="card-content">
+                        <div class="card-title">Русский ПАБ</div>
+                        <p class="card-desc">Ул. Пискунова 21/2<br>Большой квиз МьюзикПати — игра из 100 вопросов на музыкальные темы.</p>
+                        <div class="card-details">
+                            <span>Участие:</span>
+                            <span class="card-price">600 ₽</span>
+                        </div>
+                        <a href="https://nov.findquiz.ru/event/big-quiz-nov/352042-myuzik-pati" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Кракен бар -->
+                <div class="card">
+                    <div class="img-placeholder">Кракен</div>
+                    <div class="card-content">
+                        <div class="card-title">Кракен бар</div>
+                        <p class="card-desc">Расположен в особняке XIX века. Атмосфера настоящего бара, первосортное музыкальное оформление.</p>
+                        <div class="card-details">
+                            <span>Сайт:</span>
+                            <span class="card-price">krakenbar.ru</span>
+                        </div>
+                        <a href="https://krakenbar.ru/" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Union Jack -->
+                <div class="card">
+                    <div class="img-placeholder">Union Jack</div>
+                    <div class="card-content">
+                        <div class="card-title">Union Jack</div>
+                        <p class="card-desc">Британский паб. Лучшие британские традиции, широкий ассортимент и теплота интерьера.</p>
+                        <div class="card-details">
+                            <span>Сайт:</span>
+                            <span class="card-price">unionjack.ru</span>
+                        </div>
+                        <a href="https://unionjack.ru/" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Franky bar -->
+                <div class="card">
+                    <div class="img-placeholder">Franky bar</div>
+                    <div class="card-content">
+                        <div class="card-title">Franky bar</div>
+                        <p class="card-desc">Классический коктейльный бар «вне времени». Атмосфера сухого закона и старого Голливуда.</p>
+                        <div class="card-details">
+                            <span>Сайт:</span>
+                            <span class="card-price">frankybar.ru</span>
+                        </div>
+                        <a href="https://frankybar.ru/#popup:infoblock" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- ROZAS -->
+                <div class="card">
+                    <div class="img-placeholder">ROZAS</div>
+                    <div class="card-content">
+                        <div class="card-title">«ROZAS»</div>
+                        <p class="card-desc">Зеленский съезд 8/10. Топ-10 баров России. Латиноамериканская кухня и зажигательные ночи.</p>
+                        <div class="card-details">
+                            <span>Сайт:</span>
+                            <span class="card-price">rozas.ru</span>
+                        </div>
+                        <a href="https://rozas.ru/?utm_medium=bussines&utm_source=yandex" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Draft bar -->
+                <div class="card">
+                    <div class="img-placeholder">Draft bar</div>
+                    <div class="card-content">
+                        <div class="card-title">Draft bar</div>
+                        <p class="card-desc">Пиво и Музыкальное караоке. Шлягеры разных лет, объединенные темой «музыка на русском языке».</p>
+                        <div class="card-details">
+                            <span>Сайт:</span>
+                            <span class="card-price">quizplease.ru</span>
+                        </div>
+                        <a href="https://nn.quizplease.ru/game/01a0c988-a338-7355-9e24-bb65d101f930" target="_blank" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Экскурсионно-развлекательная программа «Нескучный Нижний»</p>
+            <p>Все ссылки на билеты и сайты ведут на официальные ресурсы партнеров.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Простой скрипт для плавного скролла и интерактивности
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Добавляем класс active при клике на карточку (для мобильных устройств, чтобы показать кликабельность)
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.backgroundColor = 'var(--bg-card-hover)';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.backgroundColor = '';
+            });
+        });
+    </script>
+</body>
+</html>
